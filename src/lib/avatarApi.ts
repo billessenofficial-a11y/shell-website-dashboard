@@ -1,16 +1,4 @@
-import { supabase } from './supabase';
-
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-async function getAuthHeaders() {
-  const { data: { session } } = await supabase.auth.getSession();
-  return {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${session?.access_token || SUPABASE_ANON_KEY}`,
-    'apikey': SUPABASE_ANON_KEY,
-  };
-}
 
 export async function uploadFile(file: File): Promise<{ fileId: string; fileName: string }> {
   const reader = new FileReader();
@@ -20,11 +8,12 @@ export async function uploadFile(file: File): Promise<{ fileId: string; fileName
       try {
         const base64Data = reader.result as string;
         const format = file.name.split('.').pop()?.toLowerCase() || 'png';
-        const headers = await getAuthHeaders();
 
         const response = await fetch(`${SUPABASE_URL}/functions/v1/upload-file`, {
           method: 'POST',
-          headers,
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify({
             file: base64Data,
             format,
@@ -60,10 +49,11 @@ export async function submitAvatarTask(params: {
   customMotion?: string;
   saveCustomAiAvatar?: boolean;
 }) {
-  const headers = await getAuthHeaders();
   const response = await fetch(`${SUPABASE_URL}/functions/v1/submit-avatar-task`, {
     method: 'POST',
-    headers,
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(params),
   });
 
@@ -71,12 +61,13 @@ export async function submitAvatarTask(params: {
 }
 
 export async function queryTaskStatus(taskId: string) {
-  const headers = await getAuthHeaders();
   const response = await fetch(
     `${SUPABASE_URL}/functions/v1/query-task-status?taskId=${taskId}`,
     {
       method: 'GET',
-      headers,
+      headers: {
+        'Content-Type': 'application/json',
+      },
     }
   );
 
@@ -95,12 +86,13 @@ export async function getAvatars(params?: {
   if (params?.pageNo) searchParams.set('pageNo', String(params.pageNo));
   if (params?.pageSize) searchParams.set('pageSize', String(params.pageSize));
 
-  const headers = await getAuthHeaders();
   const response = await fetch(
     `${SUPABASE_URL}/functions/v1/get-avatars?${searchParams.toString()}`,
     {
       method: 'GET',
-      headers,
+      headers: {
+        'Content-Type': 'application/json',
+      },
     }
   );
 
@@ -123,12 +115,13 @@ export async function getVoices(params?: {
   if (params?.age) searchParams.set('age', params.age);
   if (params?.style) searchParams.set('style', params.style);
 
-  const headers = await getAuthHeaders();
   const response = await fetch(
     `${SUPABASE_URL}/functions/v1/get-voices?${searchParams.toString()}`,
     {
       method: 'GET',
-      headers,
+      headers: {
+        'Content-Type': 'application/json',
+      },
     }
   );
 

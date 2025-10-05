@@ -1,7 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { toast } from 'sonner';
-import { supabase } from '../lib/supabase';
-import type { User as SupabaseUser, Session as SupabaseSession } from '@supabase/supabase-js';
 
 interface User {
   id: string;
@@ -41,74 +39,36 @@ export const useAuth = () => {
   return context;
 };
 
-const mapSupabaseUser = (supabaseUser: SupabaseUser): User => ({
-  id: supabaseUser.id,
-  email: supabaseUser.email || '',
-  user_metadata: {
-    full_name: supabaseUser.user_metadata?.full_name,
-    avatar_url: supabaseUser.user_metadata?.avatar_url,
-  },
-});
-
-const mapSupabaseSession = (supabaseSession: SupabaseSession): Session => ({
-  user: mapSupabaseUser(supabaseSession.user),
-  access_token: supabaseSession.access_token,
-});
-
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        setSession(mapSupabaseSession(session));
-        setUser(mapSupabaseUser(session.user));
-      }
-      setLoading(false);
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      (async () => {
-        if (session) {
-          setSession(mapSupabaseSession(session));
-          setUser(mapSupabaseUser(session.user));
-        } else {
-          setSession(null);
-          setUser(null);
-        }
-      })();
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const [loading, setLoading] = useState(false);
 
   const signUp = async (email: string, password: string, fullName?: string) => {
     setLoading(true);
-
+    
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
     try {
-      const { data, error } = await supabase.auth.signUp({
+      // Create mock user
+      const mockUser: User = {
+        id: `user_${Date.now()}`,
         email,
-        password,
-        options: {
-          data: {
-            full_name: fullName,
-          },
+        user_metadata: {
+          full_name: fullName,
         },
-      });
+      };
 
-      if (error) {
-        toast.error(error.message);
-        return { error: { message: error.message } };
-      }
+      const mockSession: Session = {
+        user: mockUser,
+        access_token: 'mock_token',
+      };
 
-      if (data.user && data.session) {
-        setUser(mapSupabaseUser(data.user));
-        setSession(mapSupabaseSession(data.session));
-        toast.success('Account created successfully!');
-      }
-
+      setUser(mockUser);
+      setSession(mockSession);
+      
+      toast.success('Account created successfully!');
       return { error: null };
     } catch (error) {
       const authError = { message: 'Failed to create account' };
@@ -121,24 +81,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signIn = async (email: string, password: string) => {
     setLoading(true);
-
+    
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      // Create mock user
+      const mockUser: User = {
+        id: `user_${Date.now()}`,
         email,
-        password,
-      });
+        user_metadata: {
+          full_name: email.split('@')[0],
+        },
+      };
 
-      if (error) {
-        toast.error(error.message);
-        return { error: { message: error.message } };
-      }
+      const mockSession: Session = {
+        user: mockUser,
+        access_token: 'mock_token',
+      };
 
-      if (data.user && data.session) {
-        setUser(mapSupabaseUser(data.user));
-        setSession(mapSupabaseSession(data.session));
-        toast.success('Signed in successfully!');
-      }
-
+      setUser(mockUser);
+      setSession(mockSession);
+      
       return { error: null };
     } catch (error) {
       const authError = { message: 'Invalid email or password' };
@@ -151,30 +115,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signOut = async () => {
     try {
-      const { error } = await supabase.auth.signOut();
-      if (error) {
-        toast.error(error.message);
-      } else {
-        setUser(null);
-        setSession(null);
-        toast.success('Signed out successfully');
-      }
+      setUser(null);
+      setSession(null);
     } catch (error) {
       toast.error('Error signing out');
     }
   };
 
   const resetPassword = async (email: string) => {
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`,
-      });
-
-      if (error) {
-        toast.error(error.message);
-        return { error: { message: error.message } };
-      }
-
       toast.success('Password reset email sent!');
       return { error: null };
     } catch (error) {
