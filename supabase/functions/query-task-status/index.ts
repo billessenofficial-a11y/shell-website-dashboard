@@ -1,8 +1,8 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
-const TOPVIEW_API_KEY = Deno.env.get('TOPVIEW_API_KEY');
-const TOPVIEW_API_SECRET = Deno.env.get('TOPVIEW_API_SECRET');
+const TOPVIEW_API_KEY = 'sk--uF5HPbwY-HF1_fd9Zmt543m2Pz58ARPeu96-pnBcJ8';
+const TOPVIEW_UID = 'vQIQpbYzxQWSj7zVGwIz';
 const TOPVIEW_API_URL = 'https://api.topview.ai';
 
 const corsHeaders = {
@@ -20,10 +20,6 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    if (!TOPVIEW_API_KEY || !TOPVIEW_API_SECRET) {
-      throw new Error('TopView API credentials not configured');
-    }
-
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) {
       throw new Error('Missing authorization header');
@@ -57,7 +53,7 @@ Deno.serve(async (req: Request) => {
         method: 'GET',
         headers: {
           'X-API-Key': TOPVIEW_API_KEY,
-          'X-API-Secret': TOPVIEW_API_SECRET,
+          'uid': TOPVIEW_UID,
           'Content-Type': 'application/json',
         },
       }
