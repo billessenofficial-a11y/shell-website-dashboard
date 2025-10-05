@@ -1,0 +1,7 @@
+For all designs I ask you to make, have them be beautiful, not cookie cutter. Make webpages that are fully featured and worthy for production.
+
+By default, this template supports JSX syntax with Tailwind CSS classes, React hooks, and Lucide React for icons. Do not install other packages for UI themes, icons, etc unless absolutely necessary or I request them.
+
+Use icons from lucide-react for logos.
+
+When you implement any requested change, please only modify exactly what I’ve asked for and do not remove or alter any other code, styling, or page elements unless explicitly instructed. If making my requested changes conflicts with existing code or styling, or if you anticipate any other potential issues, please notify me before proceeding. Continue to follow this rule for any changes I request.

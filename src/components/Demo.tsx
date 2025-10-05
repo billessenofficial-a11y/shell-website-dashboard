@@ -1,0 +1,134 @@
+import React, { useState } from 'react';
+
+export const Demo = () => {
+  const [activeTab, setActiveTab] = useState('text');
+  
+  return (
+    <section id="demo" className="py-24 bg-gradient-to-b from-white to-purple-50 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute -left-40 top-1/3 w-96 h-96 bg-purple-200/50 rounded-full blur-3xl" />
+      <div className="absolute -right-40 bottom-1/3 w-96 h-96 bg-indigo-200/50 rounded-full blur-3xl" />
+      
+      <div className="container mx-auto px-6 lg:px-8 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-6">
+            Experience the magic
+          </h2>
+          <p className="text-xl text-gray-600">
+            See how our AI transforms rough ideas into polished content in seconds.
+          </p>
+        </div>
+        
+        <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+          <div className="flex border-b">
+            <button
+              className={`px-6 py-4 text-lg font-medium ${
+                activeTab === 'text' 
+                  ? 'text-purple-800 border-b-2 border-purple-800' 
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+              onClick={() => setActiveTab('text')}
+            >
+              Text Generation
+            </button>
+            <button
+              className={`px-6 py-4 text-lg font-medium ${
+                activeTab === 'image' 
+                  ? 'text-purple-800 border-b-2 border-purple-800' 
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+              onClick={() => setActiveTab('image')}
+            >
+              Image Creation
+            </button>
+            <button
+              className={`px-6 py-4 text-lg font-medium ${
+                activeTab === 'video' 
+                  ? 'text-purple-800 border-b-2 border-purple-800' 
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+              onClick={() => setActiveTab('video')}
+            >
+              Video Enhancement
+            </button>
+          </div>
+          
+          <div className="p-8">
+            {activeTab === 'text' && (
+              <div className="flex flex-col lg:flex-row gap-8">
+                <div className="flex-1 bg-gray-50 p-6 rounded-xl">
+                  <h4 className="text-sm font-medium text-gray-500 mb-2">Input</h4>
+                  <p className="text-gray-700">Write a short introduction for a luxury watch company...</p>
+                </div>
+                <div className="w-8 h-8 hidden lg:flex items-center justify-center">
+                  <svg className="w-6 h-6 text-purple-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                  </svg>
+                </div>
+                <div className="flex-1 bg-purple-50 p-6 rounded-xl border border-purple-100">
+                  <h4 className="text-sm font-medium text-purple-700 mb-2">Generated Output</h4>
+                  <p className="text-gray-800">
+                    "Time isn't just measured—it's experienced. At Chronos, we craft more than watches; we create heirlooms that capture moments and transcend generations. Each timepiece represents the pinnacle of Swiss craftsmanship, where tradition meets innovation in perfect harmony."
+                  </p>
+                </div>
+              </div>
+            )}
+            
+            {activeTab === 'image' && (
+              <div className="flex flex-col lg:flex-row gap-8">
+                <div className="flex-1 bg-gray-50 p-6 rounded-xl">
+                  <h4 className="text-sm font-medium text-gray-500 mb-2">Input</h4>
+                  <p className="text-gray-700">A minimalist luxury spa interior with water features and natural light...</p>
+                </div>
+                <div className="w-8 h-8 hidden lg:flex items-center justify-center">
+                  <svg className="w-6 h-6 text-purple-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                  </svg>
+                </div>
+                <div className="flex-1 bg-purple-50 p-6 rounded-xl border border-purple-100">
+                  <h4 className="text-sm font-medium text-purple-700 mb-2">Generated Output</h4>
+                  <div className="rounded-lg overflow-hidden">
+                    <img 
+                      src="https://images.pexels.com/photos/3757942/pexels-photo-3757942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                      alt="Luxury spa interior generated by AI" 
+                      className="w-full h-auto"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {activeTab === 'video' && (
+              <div className="flex flex-col lg:flex-row gap-8">
+                <div className="flex-1 bg-gray-50 p-6 rounded-xl">
+                  <h4 className="text-sm font-medium text-gray-500 mb-2">Input</h4>
+                  <p className="text-gray-700">Enhance this product showcase video with professional lighting...</p>
+                  <div className="mt-4 bg-gray-200 rounded aspect-video flex items-center justify-center">
+                    <span className="text-gray-500">Original Video</span>
+                  </div>
+                </div>
+                <div className="w-8 h-8 hidden lg:flex items-center justify-center">
+                  <svg className="w-6 h-6 text-purple-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                  </svg>
+                </div>
+                <div className="flex-1 bg-purple-50 p-6 rounded-xl border border-purple-100">
+                  <h4 className="text-sm font-medium text-purple-700 mb-2">Generated Output</h4>
+                  <div className="mt-4 bg-purple-200 rounded aspect-video flex items-center justify-center">
+                    <span className="text-purple-800">Enhanced Video</span>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            <div className="mt-8 text-center">
+              <button className="px-6 py-3 bg-purple-800 hover:bg-purple-700 text-white rounded-full font-medium shadow-lg shadow-purple-800/20 transition-all duration-200 transform hover:scale-105">
+                Try it yourself
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
