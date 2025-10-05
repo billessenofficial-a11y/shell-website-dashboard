@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Video } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -37,8 +37,8 @@ export const Navbar = () => {
       <div className="container mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <a href="#" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-              <img src="/logo.png" alt="Avilta Logo" className="w-8 h-8" />
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
+              <Video className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-sans font-bold text-white">
               avilta

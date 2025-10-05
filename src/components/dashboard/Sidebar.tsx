@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, User, LogOut, Video } from 'lucide-react';
+import { Home, User, LogOut, Video as VideoIcon } from 'lucide-react';
 
 type Tab = 'home' | 'profile' | 'avatar-iv';
 
@@ -12,15 +12,15 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ currentTab, onTabChange, onSignOut }) => {
   const mainNavItems = [
     { icon: Home, label: 'Home', tab: 'home' as Tab },
-    { icon: Video, label: 'Avatar IV', tab: 'avatar-iv' as Tab },
+    { icon: VideoIcon, label: 'Avatar IV', tab: 'avatar-iv' as Tab },
   ];
 
   return (
     <aside className="hidden md:block w-72 fixed top-0 bottom-0 left-0 bg-white border-r border-gray-200">
       <div className="p-6 h-full flex flex-col">
         <div className="flex items-center gap-3 mb-12">
-          <div className="w-12 h-12 rounded-xl bg-brand-100 flex items-center justify-center">
-            <img src="/logo.png" alt="Avilta Logo" className="w-8 h-8" />
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
+            <VideoIcon className="w-6 h-6 text-white" />
           </div>
           <span className="text-2xl font-semibold text-gray-900">avilta</span>
         </div>
