@@ -49,8 +49,7 @@ export const Hero = () => {
   };
 
   const handleStartCreating = () => {
-    // Redirect to waitlist in same tab
-    window.location.href = 'https://www.fastwaitlist.com/avilta';
+    window.dispatchEvent(new CustomEvent('showAuthModal', { detail: { mode: 'signup' } }));
   };
 
   const handleWatchDemo = () => {
