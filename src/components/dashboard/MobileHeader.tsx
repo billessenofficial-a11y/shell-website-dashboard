@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, X, LogOut, Video } from 'lucide-react';
+import { Menu, X, LogOut } from 'lucide-react';
 
 interface MobileHeaderProps {
   onMenuClick: () => void;
@@ -12,8 +12,8 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({ onMenuClick, onSignO
     <>
       <div className="md:hidden flex items-center justify-between p-4 bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-            <Video className="w-5 h-5 text-white" />
+          <div className="w-10 h-10 rounded-xl bg-brand-100 flex items-center justify-center">
+            <img src="/logo.png" alt="Avilta Logo" className="w-6 h-6" />
           </div>
           <span className="text-xl font-semibold text-gray-900">avilta</span>
         </div>
