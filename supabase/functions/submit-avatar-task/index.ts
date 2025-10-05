@@ -45,14 +45,16 @@ Deno.serve(async (req: Request) => {
     const response = await fetch(`${TOPVIEW_API_URL}/v1/avatar/submit`, {
       method: 'POST',
       headers: {
-        'X-API-Key': TOPVIEW_API_KEY,
-        'uid': TOPVIEW_UID,
+        'X-API-KEY': TOPVIEW_API_KEY,
+        'UID': TOPVIEW_UID,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
     });
 
     const data = await response.json();
+    
+    console.log('TopView API Response:', JSON.stringify(data));
 
     if (data.code === '200' && data.result?.taskId) {
       const { error: dbError } = await supabase.from('tasks').insert({
@@ -82,6 +84,7 @@ Deno.serve(async (req: Request) => {
       },
     });
   } catch (error) {
+    console.error('Error calling TopView API:', error);
     return new Response(
       JSON.stringify({ error: error.message, code: '500' }),
       {
